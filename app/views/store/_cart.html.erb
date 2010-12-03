@@ -1,0 +1,16 @@
+<div class="cart-title">Vashata kolichka</div>
+<table>
+	<%= render(:partial => "cart_item", :collection => cart.items) %>
+
+	<tr class="total-line">
+		<td colspan="2">Obshto</td>
+		<td class="total-cell"><%= number_to_currency(cart.total_price) %></td>
+	</tr>
+</table>
+<%= button_to "Porychka", {:action => :checkout}, {:style => 'float:right; margin-right:5px;', 
+                           :disabled => session[:disabled_button]} %>
+<% form_remote_tag :url => { :action => :empty_cart } do %>
+	<%= submit_tag "Izprazni", 
+	     :confirm => "Sigurni li ste, che iskate da izpraznite kolichkata?", 
+	     :style => 'float:left;', :disabled => session[:disabled_button] %>
+<% end %>

@@ -1,0 +1,8 @@
+#!/bin/sh
+web/shop/current/script/process/spawner \
+passenger \
+--environment=production \
+--instances=1 \
+--address=juikuen.clients.webconnect.com \
+--port=80
+

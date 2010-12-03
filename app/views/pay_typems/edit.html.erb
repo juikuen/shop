@@ -1,0 +1,16 @@
+<h1>Editing pay_typem</h1>
+
+<% form_for(@pay_typem) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @pay_typem %> |
+<%= link_to 'Back', pay_typems_path %>

@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" >
+<html>
+<head>
+<title>Title na testovo demo na magazin</title>
+<%= stylesheet_link_tag "shop" , :media => "all" %>
+<%= javascript_include_tag :defaults %>
+</head>
+<body id="store">
+	<div id="banner">
+	  <%= image_tag("home_logo2.png" ) %>
+	  <%= @page_title || "Instrumentarium" %>
+	</div>
+	<div id="columns">
+	  <div id="side">
+		<div id="cart">
+			<% hidden_div_if(@cart.items.empty?, :id => "cart" ) do %>
+			<%= render(:partial => "cart" , :object => @cart) %>
+			<% end %>
+		</div>
+		<%= link_to 'Nachalo', {:controller => "store", :action => 'index'} %><br />
+		<a href="http://www.google.com">Google it</a><br />
+		<a href="http://www..../news">Novini</a><br />
+		<a href="http://www..../contact">Kontakti</a><br />
+	  </div>
+	  <div id="main">
+	    <% if flash[:notice] -%>
+	    <div id="notice"><%= flash[:notice] %></div>
+	    <% end -%>
+	    <%= yield :layout %>
+	  </div>
+	</div>
+</body>
+</html>

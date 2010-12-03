@@ -1,0 +1,34 @@
+<div class="depot-form">
+  <%= error_messages_for 'order' %>
+  <% form_for :order, :url => { :action => :save_order } do |form| %>
+
+  <fieldset>
+    <legend>Vyvedete detaili</legend>
+    
+    <div>
+      <%= form.label :name, "Ime:" %>
+      <%= form.text_field :name, :size => 40 %>
+    </div>
+    
+    <div>
+      <%= form.label :address, "Adres:" %>
+      <%= form.text_area :address, :rows => 3, :cols => 40 %>
+    </div>
+
+    <div>
+      <%= form.label :email, "E-Mail:" %>
+      <%= form.text_field :email, :size => 40 %>
+    </div>
+
+    <div>
+      <%= form.label  :pay_typem, "Plati s:" %>
+      <%= form.select :pay_typem_id, PayTypem.find(:all).collect { |pt| [pt.name, pt.id] }, 
+                      :prompt => "Izberete nachin na plashtane" %>
+
+    </div>
+
+    <%= submit_tag "KUPI" , :class => "submit" %>
+  </fieldset>
+  
+  <% end %>
+</div>
