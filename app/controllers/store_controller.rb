@@ -1,17 +1,21 @@
 class StoreController < ApplicationController
+	before_filter :find_cart, :except => :empty_cart
   def index
+	  if (User.count.zero?)
+		redirect_to(:controller => 'admin', :action => 'login')
+	  end
   	@count = increment_count
   	@products = Product.find_product_title
   	@cart = find_cart
   	session[:disabled_button] = false
   	@current_time = Time.now.strftime("%Y-%m-%d %H:%M:%S") # promenliva s vremeto sega
   end
-  def find_cart
-	unless session[:cart] # ako niama kolichka v sesiata
-	  session[:cart] = Cart.new # syzdava nova
-	end
-	session[:cart] # vryshta syshtestvuvashtata ili nova kolichka
-  end
+  #def find_cart
+#	unless session[:cart] # ako niama kolichka v sesiata
+#	  session[:cart] = Cart.new # syzdava nova
+#	end
+#	session[:cart] # vryshta syshtestvuvashtata ili nova kolichka
+ # end
   def add_to_cart
 	product = Product.find(params[:id])
 	@cart = find_cart
@@ -66,7 +70,7 @@ class StoreController < ApplicationController
   
 private #-------------------------
   def find_cart 
-	session[:cart] ||= Cart.new
+	@cart = (session[:cart] ||= Cart.new)
   end
   def redirect_to_index(msg = nil)
 	flash[:notice] = msg if msg
@@ -77,5 +81,8 @@ private #-------------------------
     session[:counter] += 1
   end
 
+protected
+  def authorize
+  end
 
 end
